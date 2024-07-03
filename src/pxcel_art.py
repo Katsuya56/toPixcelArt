@@ -18,18 +18,21 @@ def pixelate_image(image_path, pixel_size):
 
 	pixels = image.load()
 	width, height = image.size
+	# 画像データの書き換え
 	for x in range(width):
 		for y in range(height):
-			r, g, b, a = pixels[x, y]
+			# image/AIcat02.pngのサンプル画像のみa(透明度)が必要
+			# r, g, b, a = pixels[x, y]
+			r, g, b = pixels[x, y]
 			# 下四桁を0にするためにANDビット演算子を使います。0xF0=240は16進数で0b11110000です。
 			pixels[x, y] = (r & 0b11110000, g & 0b11100000, b & 0b11110000)
 
-	image.save("OUTcat.png")
+	image.save("image/OUTcat.png")
 	
 	# ピクセル化された画像を返す
 	return image
 
 # 使用例
-pixelated_image = pixelate_image('AIcat02.png', 2**3)
+pixelated_image = pixelate_image('image/AIcat00.png', 2**4)
 pixelated_image.show()
 
